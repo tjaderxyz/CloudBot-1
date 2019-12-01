@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Cleaned up the timeformat API and implementation (#32)
+- Make event queueing happen non-async
 ### Fixed
 - Ensure event order is deterministic
 - Ensure hooks are triggered according to priority
