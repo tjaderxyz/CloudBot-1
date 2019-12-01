@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cleaned up the timeformat API and implementation (#32)
 ### Fixed
 - Ensure event order is deterministic
+- Ensure hooks are triggered according to priority
 ### Removed
 - Remove unused run_before events/tasks
 
