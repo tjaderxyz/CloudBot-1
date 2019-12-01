@@ -588,7 +588,7 @@ class PluginManager:
 
     async def _launch(self, hook, event):
         # we don't need sieves on on_start hooks.
-        if hook.type not in ("on_start", "on_stop", "periodic"):
+        if hook.do_sieve and hook.type not in ("on_start", "on_stop", "periodic"):
             for sieve in self.bot.plugin_manager.sieves:
                 event = await self._sieve(sieve, event, hook)
                 if event is None:
