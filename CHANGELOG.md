@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Ensure event order is deterministic
 - Ensure hooks are triggered according to priority
+- chan_track: Ensure hooks acquire the needed locks
 ### Removed
 - Remove unused run_before events/tasks
 
