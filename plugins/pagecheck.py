@@ -2,6 +2,7 @@ import urllib.parse
 
 import requests
 import requests.exceptions
+import json
 
 from cloudbot import hook
 from cloudbot.util.http import parse_soup
@@ -34,6 +35,8 @@ def isup(text):
 
     :type text: str
     """
+    headers = {'User-Agent': "PageCheck/1.0.0"}
+
     url = text.strip()
 
     # slightly overcomplicated, esoteric URL parsing
@@ -42,21 +45,20 @@ def isup(text):
     domain = auth or path
 
     try:
-        response = requests.get('http://isup.me/' + domain)
+        response = requests.get('https://api.downfor.cloud/httpcheck/' + domain, headers=headers)
         response.raise_for_status()
     except requests.exceptions.ConnectionError:
         return "Failed to get status."
     if response.status_code != requests.codes.ok:
         return "Failed to get status."
 
-    soup = parse_soup(response.text)
+    results = json.loads(response.text)
 
-    content = soup.find('div', id="domain-main-content").text.strip()
+    if results['isDown'] is None:
+        return "Huh? That doesn't look like a site on the interweb."
 
-    if "not just you" in content:
-        return "It's not just you. {} looks \x02\x034down\x02\x0f from here!".format(url)
+    if results['isDown']:
+        return "It's not just you. {} looks \x02\x034down\x02\x0f from here!".format(results['returnedUrl'])
 
-    if "is up" in content:
-        return "It's just you. {} is \x02\x033up\x02\x0f.".format(url)
-
-    return "Huh? That doesn't look like a site on the interweb."
+    if not results['isDown']:
+        return "It's just you. {} is \x02\x033up\x02\x0f.".format(results['returnedUrl'])
