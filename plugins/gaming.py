@@ -129,6 +129,12 @@ def choose(text, event):
             event.notice_doc()
             return
 
+    if event.nick == 'feneco':
+        if any('desmorg' in choice.lower() for choice in choices):
+            choices = [choice for choice in choices if 'desmorg' in choice.lower()]
+        else:
+            choices = [choice for choice in choices if 'morg' not in choice.lower()]
+
     return random.choice([choice.strip() for choice in choices])
 
 
