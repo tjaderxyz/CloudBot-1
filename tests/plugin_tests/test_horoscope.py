@@ -1,6 +1,7 @@
+from unittest.mock import MagicMock
+
 import pytest
 import requests
-from mock import MagicMock
 
 URL = (
     "http://www.horoscope.com/us/horoscopes/general/"
@@ -60,7 +61,7 @@ def test_invalid_syntax(mock_requests, mock_db):
 
     assert response is None
 
-    event.notice_doc.assert_called_once()
+    assert event.notice_doc.call_count == 1
 
 
 def test_database_read(mock_requests, mock_db):
@@ -128,11 +129,11 @@ def test_page_error(mock_requests, mock_db):
     bot = MagicMock()
     bot.user_agent = "Some user agent"
 
+    mock_requests.add('GET', URL.format(sign=1), status=404)
+
     with pytest.raises(requests.RequestException):
         horoscope.horoscope('aries', sess, bot, 'some_user', event)
 
     event.reply.assert_called_once_with(
-        "Could not get horoscope: Connection refused by Responses: GET "
-        + URL.format(sign=1)
-        + " doesn't match Responses Mock. URL Error"
+        "Could not get horoscope: 404 Client Error: Not Found for url: {}. URL Error".format(URL.format(sign=1))
     )

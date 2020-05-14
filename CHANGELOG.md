@@ -6,10 +6,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Add Python 3.8 to testing matrix
+- Add support for channel keys (#95)
+### Changed
+- Refactor tests to remove dependency on mock library
+- Change link_announcer.py to only warn on connection errors
+- Change user lookup logic in last.fm plugin
+- Refactor minecraft_ping plugin for updated mcstatus library
+### Fixed
+- Fix matching exception in horoscope test
+- Fix youtube.py ISO time parse
+- Fix grammatical error in food sentence (beer)
+- Update youtube plugin to use proper contentRating API
+- Update mylife.py for website changes
+
+## [1.3.0] 2020-03-17
+### Added
 - Added `do_sieve` keyword to hooks
 - Add the factoid character in the listfacts output
 ### Changed
 - Cleaned up the timeformat API and implementation (#32)
+- Updated cryptocurrency to new CoinMarketCap API
 ### Fixed
 - Disconnect active vs configured channel lists (#11)
 - Fix reminder tests time based errors
@@ -19,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix random truncations of search result URLs
 - Fix listfacts not listing some facts
 - Fix wikipedia summary fetching
+- Fix loading modules with dynamic objects at the module scope (#102)
 ### Removed
 - Removed rottentomatoes plugin as the API has been removed
 - Removed dig plugin as jsondns is gone
@@ -80,7 +98,8 @@ This update is pretty big. Be warned.
 ## [1.0.0]
 - Initial stable release
 
-[Unreleased]: https://github.com/TotallyNotRobots/CloudBot/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/TotallyNotRobots/CloudBot/compare/v1.3.0...HEAD
+[1.2.0]: https://github.com/TotallyNotRobots/CloudBot/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/TotallyNotRobots/CloudBot/compare/1.1.0...v1.2.0
 [1.1.0]: https://github.com/TotallyNotRobots/CloudBot/compare/1.0.9...1.1.0
 [1.0.9]: https://github.com/TotallyNotRobots/CloudBot/compare/1.0.8...1.0.9
