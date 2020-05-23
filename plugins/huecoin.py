@@ -33,11 +33,11 @@ def huecoin(message, bot, conn):
     fchange = float(change);
     
     if fchange < 0:
-        changestr = colors.parse("$(dark_red){}%$(clear)".format(change))
+        changestr = colors.parse("$(dark_red)+{:.3}%$(clear)".format(fchange))
     elif fchange > 0:
-        changestr = colors.parse("$(dark_red){}%$(clear)".format(change))
+        changestr = colors.parse("$(dark_green){:.3}%$(clear)".format(fchange))
     else:
-        changestr = "{}%".format(change)
+        changestr = " {:.3}%".format(fchange)
         
     return "1 BTC: {} USD - {}".format(value, changestr);
     
