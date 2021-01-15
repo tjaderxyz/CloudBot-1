@@ -6,19 +6,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Add Python 3.8 to testing matrix
+- Added a stab command to stab other users
+- Add Python 3.8, 3.9 to testing matrix
 - Add support for channel keys (#95)
+- Officially support channel keys across the whole bot
+- Add missing default config keys
+- Add spam protection in herald.py
 ### Changed
+- Updated wine.json (Vault108)
 - Refactor tests to remove dependency on mock library
 - Change link_announcer.py to only warn on connection errors
 - Change user lookup logic in last.fm plugin
 - Refactor minecraft_ping plugin for updated mcstatus library
+- Expand youtube.py error information
+- Handle 'a' vs 'an' in drinks plugin
+- Apply rate limiting to regex hooks
 ### Fixed
 - Fix matching exception in horoscope test
 - Fix youtube.py ISO time parse
 - Fix grammatical error in food sentence (beer)
 - Update youtube plugin to use proper contentRating API
 - Update mylife.py for website changes
+- Fixed handling of colons in core IRC parser
+- Fix FML random URL
+- Update tvdb.py to v3 TVDB API
+- Fix channel parameter handling in IRC client
+- Fix trying to use a local bind address when it isn't set
+### Removed
+- twitch.py removed due to outdated API and lack of maintainer
+- metacritic.py removed due to broken scraper and lack of maintainer
+- amazon.py removed due to broken scraper and no maintainer
+- newegg.py removed due to broken scraper and no maintainer
+- Removed path patching in main module
+- rua.py removed due to website no longer existing that it's based off
+- Python 3.5 support dropped
 
 ## [1.3.0] 2020-03-17
 ### Added

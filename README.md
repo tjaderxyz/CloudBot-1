@@ -1,22 +1,21 @@
 # CloudBot
 ![Python application](https://github.com/TotallyNotRobots/CloudBot/workflows/Python%20application/badge.svg)
-[![CodeFactor](https://www.codefactor.io/repository/github/totallynotrobots/cloudbot/badge/gonzobot)](https://www.codefactor.io/repository/github/totallynotrobots/cloudbot/overview/gonzobot)
-[![codebeat badge](https://codebeat.co/badges/3e5866e3-fe94-4c92-9dd7-8fbd616bc2ac)](https://codebeat.co/projects/github-com-totallynotrobots-cloudbot-gonzobot)
-[![codecov](https://codecov.io/gh/TotallyNotRobots/CloudBot/branch/gonzobot/graph/badge.svg)](https://codecov.io/gh/TotallyNotRobots/CloudBot)
+[![CodeFactor](https://www.codefactor.io/repository/github/totallynotrobots/cloudbot/badge/master)](https://www.codefactor.io/repository/github/totallynotrobots/cloudbot/overview/master)
+[![codebeat badge](https://codebeat.co/badges/80316f30-26c0-44ec-b228-9158815d1995)](https://codebeat.co/projects/github-com-totallynotrobots-cloudbot-master)
+[![codecov](https://codecov.io/gh/TotallyNotRobots/CloudBot/branch/master/graph/badge.svg)](https://codecov.io/gh/TotallyNotRobots/CloudBot)
 
 CloudBot is a simple, fast, expandable open-source Python IRC Bot!
 
 ## Getting CloudBot
 
-There are currently four different branches of this repository, each with a different level of stability:
- - **gonzobot** *(stable)*: This branch contains everything in the **master** branch plus additional plugins added for Snoonet IRC. This branch is the currently maintained branch which will also contain many fixes for various bugs from the master branch.
- - **gonzobot-dev** *(unstable)*: This branch is based off of the **gonzobot** branch and includes new plugins that are not fully tested.
- - **master** *(stable (old))*: This branch contains stable, tested code. This branch is based directly on the upstream master branch and is not currently maintained.
- - **python3.4** *(unstable (old))*: This is the outdated testing branch from the upstream repo.
+You have a few options for getting the bot, you can:
+* Clone the `master` branch of this repository, using `git pull` to update
+* Download the [latest source]
+* Download the [latest release]
 
 ## Installing CloudBot
 
-Firstly, CloudBot will only run on **Python 3.5.3 or higher**
+Firstly, CloudBot will only run on **Python 3.6 or higher**
 
 To install CloudBot on *nix (linux, etc), see [here](docs/installing/nix.md)
 
@@ -33,27 +32,25 @@ Once you have installed the required dependencies and renamed the config file, y
 python3 -m cloudbot
 ```
 
-Note that you can also run the `cloudbot/__main__.py` file directly, which will work from any directory.
-```
-python3 CloudBot/cloudbot/__main__.py
-```
-Specify the path as /path/to/repository/cloudbot/__main__.py, where `cloudbot` is inside the repository directory.
-
 ## Getting help with CloudBot
 
 ### Documentation
 
-The CloudBot documentation is currently somewhat outdated and may not be correct. If you need any help, please visit our [IRC channel](https://webchat.snoonet.org/#gonzobot-dev) and we will be happy to assist you.
+The CloudBot documentation is currently somewhat outdated and may not be correct. If you need any help, please visit our [IRC channel](#support) and we will be happy to assist you.
 
-To write your own plugins, visit the [Plugins Wiki Page](https://github.com/CloudBotIRC/CloudBot/wiki/Writing-your-first-command-plugin).
+To write your own plugins, visit the [Plugins Wiki Page](https://github.com/TotallyNotRobots/CloudBot/wiki/Writing-your-first-command-plugin).
 
-More at the [Wiki Main Page](https://github.com/CloudBotIRC/CloudBot/wiki).
+More at the [Wiki Main Page](https://github.com/TotallyNotRobots/CloudBot/wiki).
 
 ### Support
 
 The developers reside in [#gonzobot-dev](https://webchat.snoonet.org/#gonzobot-dev) on [Snoonet](https://snoonet.org) and would be glad to help you.
 
 If you think you have found a bug/have a idea/suggestion, please **open a issue** here on Github and contact us on IRC!
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Changelog
 
@@ -87,6 +84,12 @@ This product includes GeoLite2 data created by MaxMind, available from
 
 ![Powered by wordnik](https://www.wordnik.com/img/wordnik_badge_a1.png)
 
+TV information is provided by [TheTVDB.com], but we are not endorsed or certified by [TheTVDB.com] or its affiliates.
+
 Translations are Powered by [Yandex.Translate](https://translate.yandex.com)
 
 This product uses data from <a href="http://wordnik.com">http://wordnik.com</a> in accordance with the wordnik.com API <a href="http://developer.wordnik.com/#!/terms">terms of service</a>.
+
+[latest source]: https://github.com/TotallyNotRobots/CloudBot/archive/master.zip
+[latest release]: https://github.com/TotallyNotRobots/CloudBot/releases/latest
+[TheTVDB.com]: https://thetvdb.com/
