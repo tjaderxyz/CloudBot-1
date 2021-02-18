@@ -6,11 +6,12 @@ from cloudbot import hook
 # Returns a list of dictionaries
 def get_results(game_name, index = 0):
     base_url = 'https://howlongtobeat.com/search_results.php?page=1'
-    post_data = {'queryString':'','sorthead':'popular','t':'games'}
+    headers = {'User-Agent': 'cloudbot'}
+    post_data = {'queryString':'', 'sorthead':'popular', 't':'games'}
 
     post_data['queryString'] = game_name
 
-    r = requests.post(base_url, data = post_data)
+    r = requests.post(base_url, data = post_data, headers=headers)
 
     soup = BeautifulSoup(r.text, 'html.parser')
 
