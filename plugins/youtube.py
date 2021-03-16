@@ -261,21 +261,11 @@ def tocaraul(bot):
     songlist = ['tente outra vez', 'metamorfose ambulante', 'maluco beleza', 'gita', 'ouro de tolo', 'meu amigo pedro', 'medo da chuva', 'vampiro doidão', 'prelúdio', 'eu nasci há dez mil anos atrás', 'cowboy fora da lei', 'canto para a minha morte', 'a maçã', 'sociedade alternativa', 'o trem das 7', 'eu também vou reclamar', 'capim guiné', 'carimbador maluco', 'disco voador', 'tu és o mdc da minha vida']
     """youtube <query> -- Returns the first YouTube search result for <query>."""
 
-    dev_key = bot.config.get_api_key("google_dev_key")
-    if not dev_key:
-        return "This command requires a Google Developers Console API key."
-
-    json = requests.get(search_api_url, params={"q": 'raul seixas ' + random.choice(songlist) , "key": dev_key, "type": "video"}).json()
-
-    if json.get('error'):
-        if json['error']['code'] == 403:
-            return err_no_api
-        else:
-            return 'Error performing search.'
-
-    if json['pageInfo']['totalResults'] == 0:
-        return 'No results found.'
-
-    video_id = json['items'][0]['id']['videoId']
-
-    return get_video_description(video_id) + " - " + video_url % video_id
+    try:
+        video_id = get_video_id(random.choice(songlist))
+        return get_video_description(video_id) + " - " + make_short_url(video_id)
+    except NoResultsError as e:
+        return e.message
+    except APIError as e:
+        reply(e.message)
+        raise
