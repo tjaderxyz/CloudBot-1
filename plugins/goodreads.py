@@ -31,12 +31,22 @@ def goodreads(text):
         return 'No results.'
     else:
         try:
-            book_name = books[index].find_all('span',{'itemprop':'name'},limit=1)[0].text
-            book_url = books[index].find_all('a',{'class':'bookTitle','itemprop':'url'})[0]['href']
+            book = books[index]
+
+            book_name = book.find_all('span',{'itemprop':'name'},limit=1)[0].text
+            book_url = book.find_all('a',{'class':'bookTitle','itemprop':'url'})[0]['href']
             book_url = base_url.format(book_url)
             shortened = requests.get('https://is.gd/create.php?format=simple&url={}'.format(book_url)).text
-            book_author = books[index].find_all('a',{'class':'authorName'})[0].text
-            ratings = books[index].find_all('span',{'class':'minirating'})[0].text.strip()
-            return '[{}/{}] {} - by {} ({}) : {}'.format(index+1,results, book_name, book_author, ratings, shortened)
+            book_author = book.find_all('a',{'class':'authorName'})[0].text
+            ratings = book.find_all('span',{'class':'minirating'})[0].text.strip()
+            
+            book_link = book.find_all('a', {'class':'bookTitle'})[0]['href']
+
+            r = requests.get(base_url.format(book_link))
+            soup = BeautifulSoup(r.text,'html.parser')
+            book_pages = soup.find(itemprop="numberOfPages").text
+            book_format = soup.find(itemprop="bookFormat").text
+
+            return '[{}/{}] {} - by {} ({}) {}, {}: {}'.format(index+1,results, book_name, book_author, ratings, book_format, book_pages, shortened)
         except IndexError:
             return 'No results.'
