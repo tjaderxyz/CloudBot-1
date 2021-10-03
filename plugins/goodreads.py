@@ -43,16 +43,16 @@ def goodreads(text):
 
             r = requests.get(base_url.format(book_link));
             soup = BeautifulSoup(r.text,'html.parser');
-            book_pages = soup.find(itemprop="numberOfPages").text;
-            book_format = soup.find(itemprop="bookFormat").text;
 
-            details = soup.find('div', {'id':'details'}).findAll('div',{'class':'row'});
+            details = soup.find('div', {'id':'details'})
+            if details:
+                detailstext = details.find_all('div',{'class':'row'})
             book_details = '';
             details_list = [];
-            for detail in details:
+            for detail in detailstext:
                 details_list.append(' '.join(detail.text.split()))
             book_details = '. '.join(details_list);
 
-            return '[{}/{}] {} - by {} ({}) {}, {} {}: {}'.format(index+1,results, book_name, book_author, ratings, book_format, book_pages, book_details, shortened)
+            return '[{}/{}] {} - by {} ({}) {}: {}'.format(index+1,results, book_name, book_author, ratings, book_details, shortened)
         except IndexError:
             return 'No results.'
