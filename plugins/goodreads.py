@@ -45,6 +45,7 @@ def goodreads(text):
             soup = BeautifulSoup(r.text,'html.parser');
 
             details = soup.find('div', {'id':'details'})
+            detailstext = None
             if details:
                 detailstext = details.find_all('div',{'class':'row'})
             book_details = '';
