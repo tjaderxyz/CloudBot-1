@@ -3,7 +3,9 @@ from cloudbot.util import formatting
 import urllib
 import requests
 from bs4 import BeautifulSoup
+import logging
 
+logger = logging.getLogger("cloudbot")
 api_url = 'https://www.goodreads.com/search?utf8=%E2%9C%93&query={}'
 base_url = 'https://www.goodreads.com{}'
 
@@ -35,7 +37,12 @@ def goodreads(text):
             book_name = book.find_all('span',{'itemprop':'name'},limit=1)[0].text
             book_url = book.find_all('a',{'class':'bookTitle','itemprop':'url'})[0]['href']
             book_url = base_url.format(book_url)
-            shortened = requests.get('https://is.gd/create.php?format=simple&url={}'.format(book_url)).text
+            try:
+                shortened = requests.get('https://v.gd/create.php?format=simple&url={}'.format(book_url)).text
+            except Exception as e:
+                shortened = ''
+                logger.info("Error obtaining shortened link. Requests exception: {}".format(type(e).__name__))
+                logger.info(e)
             book_author = book.find_all('a',{'class':'authorName'})[0].text
             ratings = book.find_all('span',{'class':'minirating'})[0].text.strip()
 

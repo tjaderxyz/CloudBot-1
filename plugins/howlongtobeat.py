@@ -2,6 +2,9 @@ import requests
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 from cloudbot import hook
+import logging
+
+logger = logging.getLogger("cloudbot")
 
 # Returns a list of dictionaries
 def get_results(game_name, index = 0):
@@ -73,7 +76,14 @@ def howlongtobeat(text):
         for key, value in g['data'].items():
           output += ' ({}: {}) '.format(key, value)
 
-        output += requests.get('https://is.gd/create.php?format=simple&url={}'.format('https://howlongtobeat.com/' + g['href'])).text
+        try:
+            shortened = requests.get('https://v.gd/create.php?format=simple&url={}'.format('https://howlongtobeat.com/' + g['href'])).text
+        except Exception as e:
+            shortened = ''
+            logger.info("Error obtaining shortened link. Requests exception: {}".format(type(e).__name__))
+            logger.info(e)
+
+        output += shortened
 
         return output
     else:
