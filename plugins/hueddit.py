@@ -56,7 +56,7 @@ def get_image(subname):
 def get_displayline(submission):
     return '{} ( {} - {} - {} ) {}'.format(submission.url, submission.subreddit_name_prefixed, submission.title, submission.shortlink, ' \x0304NSFW' if submission.over_18 else '')
 
-@hook.command('pic')
+@hook.command('pic', 'img')
 def reddit_random_image_search(text):
     try:
         subm = get_image(text)
@@ -75,7 +75,7 @@ def random_bork_search():
 
 @hook.command('meow','miau')
 def random_meow_search():
-    sub = random.choice(['catsstandingup', 'catpictures', 'kitty', 'cats', 'catsinbusinessattire', 'meow_irl'])
+    sub = random.choice(['catsstandingup', 'catpictures', 'kitty', 'cats', 'catsinbusinessattire', 'meow_irl', 'greebles'])
     try:
         subm = get_image(sub)
     except praw.exceptions.PRAWException as e:
@@ -103,6 +103,15 @@ def random_duck_search():
 @hook.command('oinc')
 def random_pig_search():
     sub = random.choice(['pigs', 'babypigs', 'pigtures', 'pigifs'])
+    try:
+        subm = get_image(sub)
+    except praw.exceptions.PRAWException as e:
+        return e
+    return get_displayline(subm)
+
+@hook.command('bnf')
+def random_feneco_search():
+    sub = random.choice(['fennecfoxes'])
     try:
         subm = get_image(sub)
     except praw.exceptions.PRAWException as e:
