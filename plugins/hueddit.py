@@ -5,7 +5,7 @@ import asyncio
 import functools
 from urllib.parse import urlparse
 
-import praw
+import praw, prawcore
 import requests
 
 from cloudbot import hook
@@ -28,12 +28,25 @@ def is_image(url):
     else:
         return False
 
-def get_image(subname):
+def get_image(sublist):
 
     MAX_IMAGE_LIST = 50
     LIMIT_NO_IMG = 50
 
-    sub = reddit_instance.subreddit(subname)
+    # get a random sub, and check if valid.
+    foundsub = False
+    while not foundsub:
+        if not len(sublist):
+            raise praw.exceptions.PRAWException('No valid subreddits')
+        subname = random.choice(sublist)
+        sub = reddit_instance.subreddit(subname)
+        try:
+            sub.subreddit_type
+        except (prawcore.exceptions.Forbidden, prawcore.exceptions.NotFound) as e:
+            # if subreddit is private or banned, remove from list and pick another one
+            sublist.remove(subname)
+            continue
+        foundsub = True
 
     submlist = []
 
@@ -56,64 +69,48 @@ def get_image(subname):
 def get_displayline(submission):
     return '{} ( {} - {} - {} ) {}'.format(submission.url, submission.subreddit_name_prefixed, submission.title, submission.shortlink, ' \x0304NSFW' if submission.over_18 else '')
 
-@hook.command('pic', 'img')
-def reddit_random_image_search(text):
+def do_search(sublist):
     try:
-        subm = get_image(text)
+        subm = get_image(sublist)
     except praw.exceptions.PRAWException as e:
         return e
     return get_displayline(subm)
+
+@hook.command('pic', 'img')
+def reddit_random_image_search(text):
+    return do_search([text])
     
 @hook.command('bork')
 def random_bork_search():
-    sub = random.choice(['woof_irl', 'woofbarkwoof', 'supershibe', 'rarepuppers', 'dogpictures', 'doggos', 'surpriseddogs'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['woof_irl', 'woofbarkwoof', 'supershibe', 'rarepuppers', 'dogpictures', 'doggos', 'surpriseddogs']
+    return do_search(subs)
 
 @hook.command('meow','miau')
 def random_meow_search():
-    sub = random.choice(['catsstandingup', 'catpictures', 'kitty', 'cats', 'catsinbusinessattire', 'meow_irl', 'greebles'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['catsstandingup', 'catpictures', 'kitty', 'cats', 'catsinbusinessattire', 'meow_irl', 'greebles']
+    return do_search(subs)
 
 @hook.command('omnomnom','nom')
 def random_nom_search():
-    sub = random.choice(['gifrecipes','foodporn'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['gifrecipes','foodporn']
+    return do_search(subs)
 
 @hook.command('quack')
 def random_duck_search():
-    sub = random.choice(['duck'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['duck']
+    return do_search(subs)
 
 @hook.command('oinc')
 def random_pig_search():
-    sub = random.choice(['pigs', 'babypigs', 'pigtures', 'pigifs'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['pigs', 'babypigs', 'pigtures', 'pigifs']
+    return do_search(subs)
 
 @hook.command('bnf')
 def random_feneco_search():
-    sub = random.choice(['fennecfoxes'])
-    try:
-        subm = get_image(sub)
-    except praw.exceptions.PRAWException as e:
-        return e
-    return get_displayline(subm)
+    subs = ['fennecfoxes']
+    return do_search(subs)
+
+@hook.command('bnt')
+def random_feneco_search():
+    subs = ['pizza, pizzacrimes']
+    return do_search(subs)
