@@ -80,7 +80,7 @@ def do_search(sublist):
 def reddit_random_image_search(text):
     return do_search([text])
     
-@hook.command('bork')
+@hook.command('bork', '🐶')
 def random_bork_search():
     subs = ['woof_irl', 'woofbarkwoof', 'supershibe', 'rarepuppers', 'dogpictures', 'doggos', 'surpriseddogs']
     return do_search(subs)
